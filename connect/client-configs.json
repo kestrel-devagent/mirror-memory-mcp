@@ -39,7 +39,12 @@
           "MIRROR_MEMORY_TOKEN": "{{TOKEN}}"
         }
       },
-      "relaunch": "full quit Cmd-Q"
+      "relaunch": "full quit Cmd-Q (macOS); window close is not enough",
+      "configPaths": {
+        "macos": "~/Library/Application Support/Claude/claude_desktop_config.json",
+        "windows": "%APPDATA%\\\\Claude\\\\claude_desktop_config.json",
+        "linux": "~/.config/Claude/claude_desktop_config.json"
+      }
     },
     "devinLocal": {
       "path": "~/.config/devin/mcp_config.json",
@@ -63,5 +68,6 @@
   "defaultEntry": "/path/to/mirror-memory-mcp/dist/index.js",
   "cloneUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp.git",
   "repoUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp",
-  "npmStatus": "NOT_LIVE"
+  "npmStatus": "NOT_LIVE",
+  "npmCutover": "NPM_ENTRY_CUTOVER.md \u2014 do not flip until npm view greens"
 }
