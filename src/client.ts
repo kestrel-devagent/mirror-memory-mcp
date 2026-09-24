@@ -10,6 +10,8 @@ import type {
   MemoryNote,
   MemorySearchRequest,
   MemorySearchResponse,
+  VoiceProfile,
+  VoiceSearchHint,
   WriteNoteInput,
 } from "./types.js";
 import type { MirrorConfig } from "./config.js";
@@ -130,12 +132,16 @@ export class MirrorClient {
     })) as Partial<MemorySearchResponse> | null;
 
     const hits = Array.isArray(raw?.hits) ? raw!.hits : [];
-    return {
+    const out: MemorySearchResponse = {
       query: raw?.query ?? input.q,
       hits,
       hitCount: raw?.hitCount ?? hits.length,
       truncated: Boolean(raw?.truncated),
     };
+    if (raw && typeof raw === "object" && "voiceHint" in raw && raw.voiceHint) {
+      out.voiceHint = raw.voiceHint as VoiceSearchHint;
+    }
+    return out;
   }
 
   /** GET /api/memory/thread/:id — composite id preferred: provider:conversationId */
@@ -200,6 +206,27 @@ export class MirrorClient {
     return {
       notes: Array.isArray(raw.notes) ? raw.notes : [],
       total: raw.total,
+    };
+  }
+
+  /**
+   * GET /api/memory/voice — Your voice profile (preference notes + starters).
+   * Empty profile → source "empty" + empty arrays (200, not 404).
+   * Soft Pro Capture HOLD — read-only; no billing fields.
+   */
+  async getVoice(): Promise<VoiceProfile> {
+    const raw = (await this.request("GET", "/api/memory/voice")) as Partial<VoiceProfile> | null;
+    return {
+      preferenceNotes: Array.isArray(raw?.preferenceNotes)
+        ? raw!.preferenceNotes
+        : [],
+      starters: Array.isArray(raw?.starters) ? raw!.starters : [],
+      updatedAt:
+        typeof raw?.updatedAt === "string" ? raw.updatedAt : undefined,
+      source:
+        raw?.source === "manual" || raw?.source === "built" || raw?.source === "empty"
+          ? raw.source
+          : "empty",
     };
   }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Dry-run smoke — validates tool schemas without a live token or host.
- * Exit 0 when all six roadmap tools are registered with expected inputs.
+ * Exit 0 when all seven tools (incl. get_voice) are registered with expected inputs.
  */
 import { pathToFileURL } from "node:url";
 import path from "node:path";
@@ -17,6 +17,7 @@ const EXPECTED = [
   { name: "write_note", props: ["body"] },
   { name: "search_notes", props: [] },
   { name: "append_memory", props: ["body"] },
+  { name: "get_voice", props: [] },
 ];
 
 async function main() {
@@ -55,6 +56,10 @@ async function main() {
   if (search && !/citation/i.test(search.description)) {
     problems.push("search_history description should mention citation");
   }
+  const voice = byName.get("get_voice");
+  if (voice && !/voice/i.test(voice.description)) {
+    problems.push("get_voice description should mention voice");
+  }
 
   console.log("Mirror Memory MCP — smoke (schema dry-run)");
   console.log(`tools: ${schemas.map((s) => s.name).join(", ")}`);
@@ -67,7 +72,7 @@ async function main() {
     for (const p of problems) console.error("  " + p);
     process.exit(1);
   }
-  console.log("OK — all 6 roadmap tools present (no live token required).");
+  console.log("OK — all 7 tools present incl. get_voice (no live token required).");
 }
 
 main().catch((err) => {

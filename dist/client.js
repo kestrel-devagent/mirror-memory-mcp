@@ -105,12 +105,16 @@ export class MirrorClient {
             body,
         }));
         const hits = Array.isArray(raw?.hits) ? raw.hits : [];
-        return {
+        const out = {
             query: raw?.query ?? input.q,
             hits,
             hitCount: raw?.hitCount ?? hits.length,
             truncated: Boolean(raw?.truncated),
         };
+        if (raw && typeof raw === "object" && "voiceHint" in raw && raw.voiceHint) {
+            out.voiceHint = raw.voiceHint;
+        }
+        return out;
     }
     /** GET /api/memory/thread/:id — composite id preferred: provider:conversationId */
     async getThread(id, opts) {
@@ -163,6 +167,24 @@ export class MirrorClient {
         return {
             notes: Array.isArray(raw.notes) ? raw.notes : [],
             total: raw.total,
+        };
+    }
+    /**
+     * GET /api/memory/voice — Your voice profile (preference notes + starters).
+     * Empty profile → source "empty" + empty arrays (200, not 404).
+     * Soft Pro Capture HOLD — read-only; no billing fields.
+     */
+    async getVoice() {
+        const raw = (await this.request("GET", "/api/memory/voice"));
+        return {
+            preferenceNotes: Array.isArray(raw?.preferenceNotes)
+                ? raw.preferenceNotes
+                : [],
+            starters: Array.isArray(raw?.starters) ? raw.starters : [],
+            updatedAt: typeof raw?.updatedAt === "string" ? raw.updatedAt : undefined,
+            source: raw?.source === "manual" || raw?.source === "built" || raw?.source === "empty"
+                ? raw.source
+                : "empty",
         };
     }
     /**

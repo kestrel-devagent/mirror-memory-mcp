@@ -10,7 +10,7 @@ import { loadConfig } from "./config.js";
 import { MirrorClient } from "./client.js";
 import { registerTools } from "./tools.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 function createServer(): McpServer {
   const config = loadConfig();

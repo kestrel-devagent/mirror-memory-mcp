@@ -93,6 +93,8 @@ export interface MemorySearchResponse {
   hits: MemoryHit[];
   hitCount: number;
   truncated: boolean;
+  /** Present when host has a non-empty Your voice profile. */
+  voiceHint?: VoiceSearchHint;
 }
 
 export interface BoundedThreadMessage {
@@ -156,4 +158,41 @@ export interface HostErrorBody {
   error?: string;
   message?: string;
   code?: string;
+}
+
+/** GET /api/memory/voice — Your voice profile (read-only for MCP get_voice). */
+export type VoiceSource = "empty" | "manual" | "built";
+
+export interface VoicePreferenceNote {
+  id: string;
+  text: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface VoiceStarterPrompt {
+  id: string;
+  title: string;
+  body: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface VoiceProfile {
+  preferenceNotes: VoicePreferenceNote[];
+  starters: VoiceStarterPrompt[];
+  updatedAt?: string;
+  source: VoiceSource;
+}
+
+/**
+ * Light Your-voice header optionally attached to POST /api/memory/search.
+ * Not a full profile dump — prefer get_voice for the complete profile.
+ */
+export interface VoiceSearchHint {
+  source: VoiceSource;
+  preferenceNoteCount: number;
+  starterCount: number;
+  snippets: string[];
+  updatedAt: string | null;
 }

@@ -2,7 +2,7 @@
  * Thin HTTP client for Mirror host memory APIs.
  * Clear errors on 401/404 so dogfood can wait on Builder Railway redeploy.
  */
-import type { BoundedThread, ListPinsItem, MemoryNote, MemorySearchRequest, MemorySearchResponse, WriteNoteInput } from "./types.js";
+import type { BoundedThread, ListPinsItem, MemoryNote, MemorySearchRequest, MemorySearchResponse, VoiceProfile, WriteNoteInput } from "./types.js";
 import type { MirrorConfig } from "./config.js";
 export declare class MirrorApiError extends Error {
     readonly status: number;
@@ -43,6 +43,12 @@ export declare class MirrorClient {
         notes: MemoryNote[];
         total?: number;
     }>;
+    /**
+     * GET /api/memory/voice — Your voice profile (preference notes + starters).
+     * Empty profile → source "empty" + empty arrays (200, not 404).
+     * Soft Pro Capture HOLD — read-only; no billing fields.
+     */
+    getVoice(): Promise<VoiceProfile>;
     /**
      * list_pins — GET /api/memory/pins when live;
      * else wrap GET /api/archive/search?pinned=1 (already on Railway).

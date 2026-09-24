@@ -1,6 +1,7 @@
 /**
  * MCP tools — roadmap names mapped to host /api/memory/* routes.
  * Search hits are Dreamer RETRIEVAL_CONTRACT shapes (pass-through).
+ * get_voice is read-only Your voice. Soft Pro Capture HOLD.
  */
 import { z } from "zod";
 import { MirrorApiError } from "./client.js";
@@ -144,6 +145,14 @@ export const toolDefs = {
             sourceAgent: z.string().max(120).optional(),
         }),
     },
+    get_voice: {
+        name: "get_voice",
+        description: "Read the user's Your voice profile (preference notes + starter prompts). " +
+            "Read-only. Empty profile returns source 'empty' with empty arrays (not an error). " +
+            "Prefer this when adapting tone/style; search_history may also include a short voiceHint. " +
+            "Host: GET /api/memory/voice. Soft Pro Capture HOLD — no billing.",
+        inputSchema: z.object({}),
+    },
 };
 export function registerTools(
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -159,10 +168,39 @@ server, client) {
                 providers: args.providers,
                 kinds: args.kinds,
             });
+            // Prefer host voiceHint; if absent (older host), fetch a light fallback once.
+            let voiceHint = result.voiceHint;
+            if (!voiceHint) {
+                try {
+                    const voice = await client.getVoice();
+                    if (voice.source !== "empty" &&
+                        (voice.preferenceNotes.length > 0 || voice.starters.length > 0)) {
+                        voiceHint = {
+                            source: voice.source,
+                            preferenceNoteCount: voice.preferenceNotes.length,
+                            starterCount: voice.starters.length,
+                            snippets: voice.preferenceNotes
+                                .slice(0, 3)
+                                .map((n) => n.text.length > 80
+                                ? n.text.slice(0, 79) + "…"
+                                : n.text)
+                                .filter(Boolean),
+                            updatedAt: voice.updatedAt ?? null,
+                        };
+                    }
+                }
+                catch {
+                    // Voice enrichment is best-effort; search hits still return.
+                }
+            }
             return textResult({
                 ok: true,
                 ...result,
+                ...(voiceHint ? { voiceHint } : {}),
                 _contract: "Dreamer RETRIEVAL_CONTRACT — cite citation.label + deepLink/ids; snippets are display-only.",
+                _voice: voiceHint
+                    ? "voiceHint is a short Your-voice header — call get_voice for the full profile."
+                    : undefined,
             });
         }
         catch (err) {
@@ -257,6 +295,24 @@ server, client) {
                 created: true,
                 note,
                 _note: "No noteId — created new note with tag 'memory'. Pass noteId to append.",
+            });
+        }
+        catch (err) {
+            return errResult(err);
+        }
+    });
+    server.registerTool(toolDefs.get_voice.name, {
+        description: toolDefs.get_voice.description,
+        inputSchema: toolDefs.get_voice.inputSchema,
+    }, async (_args) => {
+        try {
+            const voice = await client.getVoice();
+            return textResult({
+                ok: true,
+                voice,
+                _note: voice.source === "empty"
+                    ? "Your voice is empty — user can build/edit at /voice. Soft Pro Capture HOLD."
+                    : "Use preferenceNotes + starters to adapt tone; call get_voice again after edits.",
             });
         }
         catch (err) {

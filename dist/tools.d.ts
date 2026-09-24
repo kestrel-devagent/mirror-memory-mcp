@@ -1,6 +1,7 @@
 /**
  * MCP tools — roadmap names mapped to host /api/memory/* routes.
  * Search hits are Dreamer RETRIEVAL_CONTRACT shapes (pass-through).
+ * get_voice is read-only Your voice. Soft Pro Capture HOLD.
  */
 import { z } from "zod";
 import type { MirrorClient } from "./client.js";
@@ -77,6 +78,11 @@ export declare const toolDefs: {
             tags: z.ZodOptional<z.ZodArray<z.ZodString>>;
             sourceAgent: z.ZodOptional<z.ZodString>;
         }, z.core.$strip>;
+    };
+    readonly get_voice: {
+        readonly name: "get_voice";
+        readonly description: string;
+        readonly inputSchema: z.ZodObject<{}, z.core.$strip>;
     };
 };
 export type ToolName = keyof typeof toolDefs;

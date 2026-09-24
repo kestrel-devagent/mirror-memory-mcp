@@ -54,6 +54,8 @@ Also editable via Cursor → Settings → MCP → Edit config.
 
 That’s the human dogfood gate for second-agent shared memory.
 
+Optional: `get_voice` reads Your voice (preference notes + starters) via `GET /api/memory/voice`. Soft Pro Capture **HOLD**.
+
 ---
 
 ## Manual fallback

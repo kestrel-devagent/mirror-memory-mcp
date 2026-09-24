@@ -1,6 +1,6 @@
 {
   "name": "mirror-memory-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "Mirror Memory MCP \u2014 shared agent memory for Cursor, Claude Desktop, and local Devin",
   "license": "MIT",

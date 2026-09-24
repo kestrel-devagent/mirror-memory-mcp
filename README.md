@@ -38,7 +38,7 @@ Until then, use the **clone path** above. Connect UI keeps `{{ENTRY}}` as a loca
 
 ## What it does
 
-Exposes six tools against Mirror host APIs:
+Exposes seven tools against Mirror host APIs:
 
 | Tool | Host |
 |---|---|
@@ -48,6 +48,9 @@ Exposes six tools against Mirror host APIs:
 | `write_note` | `POST /api/memory/notes` |
 | `search_notes` | `GET /api/memory/notes` |
 | `append_memory` | `POST /api/memory/notes` with `id` (else create + tag `memory`) |
+| `get_voice` | `GET /api/memory/voice` (Your voice — read-only) |
+
+`search_history` may include a short `voiceHint` when Your voice exists — call `get_voice` for the full preference notes + starters. Soft Pro Capture **HOLD**.
 
 ## Connect (preferred product path)
 

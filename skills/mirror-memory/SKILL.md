@@ -3,8 +3,8 @@ name: mirror-memory
 description: >-
   Use Mirror Memory MCP tools to search Hudson/Asa's shared chat vault and
   durable notes across ChatGPT, Claude, and Grok. Prefer when the user asks
-  what was decided, to find an old thread, to pin/list pins, or to write a note
-  other agents should see later.
+  what was decided, to find an old thread, to pin/list pins, to read Your voice,
+  or to write a note other agents should see later.
 ---
 
 # Mirror Memory
@@ -21,6 +21,7 @@ Shared agent memory for **Mirror** (Aftermodel rename later). Soft Pro / Capture
 | Durable fact for later agents | `write_note` | Short title; meaningful tags; set `sourceAgent`. |
 | Browse notes only | `search_notes` | Or `search_history` with `kinds: ["note"]`. |
 | Extend an existing note | `append_memory` | Pass `noteId` when known; else creates a note tagged `memory`. |
+| Adapt tone / preference notes | `get_voice` | Read-only Your voice profile. `search_history` may include a short `voiceHint`. |
 
 ## Citations (required)
 
