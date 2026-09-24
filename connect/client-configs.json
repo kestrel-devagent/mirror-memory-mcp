@@ -1,0 +1,67 @@
+{
+  "host": "https://web-production-0e178.up.railway.app",
+  "defaultEntryMac": "/path/to/mirror-memory-mcp/dist/index.js",
+  "tools": [
+    "search_history",
+    "get_thread",
+    "list_pins",
+    "write_note",
+    "search_notes",
+    "append_memory"
+  ],
+  "clients": {
+    "cursor": {
+      "path": "~/.cursor/mcp.json",
+      "rootKey": "mcpServers",
+      "serverName": "mirror-memory",
+      "config": {
+        "command": "node",
+        "args": [
+          "/path/to/mirror-memory-mcp/dist/index.js"
+        ],
+        "env": {
+          "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
+          "MIRROR_MEMORY_TOKEN": "{{TOKEN}}"
+        }
+      }
+    },
+    "claudeDesktop": {
+      "path": "~/Library/Application Support/Claude/claude_desktop_config.json",
+      "rootKey": "mcpServers",
+      "serverName": "mirror-memory",
+      "config": {
+        "command": "node",
+        "args": [
+          "/path/to/mirror-memory-mcp/dist/index.js"
+        ],
+        "env": {
+          "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
+          "MIRROR_MEMORY_TOKEN": "{{TOKEN}}"
+        }
+      },
+      "relaunch": "full quit Cmd-Q"
+    },
+    "devinLocal": {
+      "path": "~/.config/devin/mcp_config.json",
+      "rootKey": "mcpServers",
+      "serverName": "mirror-memory",
+      "config": {
+        "command": "node",
+        "args": [
+          "/path/to/mirror-memory-mcp/dist/index.js"
+        ],
+        "env": {
+          "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
+          "MIRROR_MEMORY_TOKEN": "{{TOKEN}}"
+        }
+      },
+      "cli": "devin mcp add -s user mirror-memory ...",
+      "cloudStdio": false
+    }
+  },
+  "softProCapture": "HOLD",
+  "defaultEntry": "/path/to/mirror-memory-mcp/dist/index.js",
+  "cloneUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp.git",
+  "repoUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp",
+  "npmStatus": "NOT_LIVE"
+}

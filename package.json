@@ -1,0 +1,68 @@
+{
+  "name": "mirror-memory-mcp",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Mirror Memory MCP — shared agent memory for Cursor, Claude Desktop, and local Devin",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "bin": {
+    "mirror-memory-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist/**",
+    "src/**",
+    "scripts/smoke.mjs",
+    "scripts/second-client-dogfood.mjs",
+    "skills/**",
+    "connect/**",
+    "README.md",
+    "LICENSE",
+    "INSTALL_HUDSON.md",
+    "INSTALL_CLAUDE_DESKTOP.md",
+    ".env.example",
+    "tsconfig.json"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "smoke": "node scripts/smoke.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "mirror",
+    "memory",
+    "cursor",
+    "claude",
+    "model-context-protocol",
+    "agent-memory"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kestrel-devagent/mirror-memory-mcp.git"
+  },
+  "homepage": "https://github.com/kestrel-devagent/mirror-memory-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/kestrel-devagent/mirror-memory-mcp/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.0.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}
