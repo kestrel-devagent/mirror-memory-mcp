@@ -26,6 +26,9 @@ Placeholders the Connect UI must substitute:
 
 ## Cursor (`~/.cursor/mcp.json`)
 
+One-sitting (pre-npm): clone → `npm install && npm run build` → absolute `{{ENTRY}}` → paste → reload MCP.  
+Docs: package `INSTALL_CURSOR.md`. Soft Pro Capture **HOLD**. npx **NOT LIVE**.
+
 ```json
 {
   "mcpServers": {
@@ -41,7 +44,7 @@ Placeholders the Connect UI must substitute:
 }
 ```
 
-Reload: Settings → MCP → toggle off/on (or reload window).
+Reload: Settings → MCP → toggle off/on (or reload window). Windows path: `%USERPROFILE%\.cursor\mcp.json`.
 
 ---
 

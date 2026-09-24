@@ -23,7 +23,14 @@
           "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
           "MIRROR_MEMORY_TOKEN": "{{TOKEN}}"
         }
-      }
+      },
+      "configPaths": {
+        "macos": "~/.cursor/mcp.json",
+        "linux": "~/.cursor/mcp.json",
+        "windows": "%USERPROFILE%\\\\.cursor\\\\mcp.json"
+      },
+      "reload": "Settings \u2192 MCP toggle off/on, or reload window",
+      "installDoc": "INSTALL_CURSOR.md"
     },
     "claudeDesktop": {
       "path": "~/Library/Application Support/Claude/claude_desktop_config.json",
