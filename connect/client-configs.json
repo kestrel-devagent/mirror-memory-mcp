@@ -15,9 +15,10 @@
       "rootKey": "mcpServers",
       "serverName": "mirror-memory",
       "config": {
-        "command": "node",
+        "command": "npx",
         "args": [
-          "/path/to/mirror-memory-mcp/dist/index.js"
+          "-y",
+          "mirror-memory-mcp@0.1.1"
         ],
         "env": {
           "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
@@ -30,16 +31,17 @@
         "windows": "%USERPROFILE%\\\\.cursor\\\\mcp.json"
       },
       "reload": "Settings \u2192 MCP toggle off/on, or reload window",
-      "installDoc": "INSTALL_CURSOR.md"
+      "installDoc": "INSTALL_CURSOR_NPM.md"
     },
     "claudeDesktop": {
       "path": "~/Library/Application Support/Claude/claude_desktop_config.json",
       "rootKey": "mcpServers",
       "serverName": "mirror-memory",
       "config": {
-        "command": "node",
+        "command": "npx",
         "args": [
-          "/path/to/mirror-memory-mcp/dist/index.js"
+          "-y",
+          "mirror-memory-mcp@0.1.1"
         ],
         "env": {
           "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
@@ -51,16 +53,18 @@
         "macos": "~/Library/Application Support/Claude/claude_desktop_config.json",
         "windows": "%APPDATA%\\\\Claude\\\\claude_desktop_config.json",
         "linux": "~/.config/Claude/claude_desktop_config.json"
-      }
+      },
+      "installDoc": "INSTALL_CLAUDE_DESKTOP_NPM.md"
     },
     "devinLocal": {
       "path": "~/.config/devin/mcp_config.json",
       "rootKey": "mcpServers",
       "serverName": "mirror-memory",
       "config": {
-        "command": "node",
+        "command": "npx",
         "args": [
-          "/path/to/mirror-memory-mcp/dist/index.js"
+          "-y",
+          "mirror-memory-mcp@0.1.1"
         ],
         "env": {
           "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
@@ -75,6 +79,7 @@
   "defaultEntry": "/path/to/mirror-memory-mcp/dist/index.js",
   "cloneUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp.git",
   "repoUrl": "https://github.com/kestrel-devagent/mirror-memory-mcp",
-  "npmStatus": "NOT_LIVE",
-  "npmCutover": "NPM_ENTRY_CUTOVER.md \u2014 do not flip until npm view greens"
+  "npmStatus": "LIVE",
+  "npmCutover": "NPM_ENTRY_CUTOVER.md \u2014 LIVE with MIRROR_MCP_NPM_LIVE=1",
+  "npmPackage": "mirror-memory-mcp@0.1.1"
 }
