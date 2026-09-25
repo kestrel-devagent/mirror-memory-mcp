@@ -6,9 +6,21 @@ Connect Cursor, Claude Desktop, or local Devin to your Mirror vault so agents ca
 
 > Soft Pro Capture monetization: **HOLD** (product lock — not part of this package).
 
-## Until npm is live (honest clone)
+## Primary ENTRY (LIVE)
 
-`mirror-memory-mcp` is **not** on the npm registry yet (`npm view mirror-memory-mcp version` → 404). Do **not** invent an `npx` one-liner until that greens.
+```bash
+npx -y mirror-memory-mcp@0.1.1
+```
+
+`npm view mirror-memory-mcp version` → `0.1.1`. Soft Pro Capture **HOLD**.
+
+One-pagers: [INSTALL_CURSOR_NPM.md](./INSTALL_CURSOR_NPM.md) · [INSTALL_CLAUDE_DESKTOP_NPM.md](./INSTALL_CLAUDE_DESKTOP_NPM.md)  
+Advanced / local build fallback: [INSTALL_CURSOR.md](./INSTALL_CURSOR.md) · [INSTALL_CLAUDE_DESKTOP.md](./INSTALL_CLAUDE_DESKTOP.md)  
+Cutover: [NPM_ENTRY_CUTOVER.md](./NPM_ENTRY_CUTOVER.md) (DONE / LIVE)
+
+## Advanced / local build fallback
+
+Use only when you need a local `dist/index.js`:
 
 ```bash
 git clone https://github.com/kestrel-devagent/mirror-memory-mcp.git
@@ -17,24 +29,7 @@ npm install
 npm run build
 ```
 
-**ENTRY** for MCP configs = absolute path to `dist/index.js` on your machine, e.g.:
-
-```text
-/absolute/path/to/mirror-memory-mcp/dist/index.js
-```
-
-Generic placeholder used in Connect UI: `/path/to/mirror-memory-mcp/dist/index.js`
-
-## After npm (NOT LIVE YET / TBD after publish)
-
-Once `npm view mirror-memory-mcp version` returns a version and Asa has published:
-
-```bash
-# TBD AFTER PUBLISH — do not run until registry greens
-npx -y mirror-memory-mcp
-```
-
-Until then, use the **clone path** above. Connect UI keeps `{{ENTRY}}` as a local `dist/index.js` path.
+**ENTRY** = absolute path to `dist/index.js` (placeholder `/path/to/mirror-memory-mcp/dist/index.js`).
 
 ## What it does
 
@@ -55,21 +50,18 @@ Exposes seven tools against Mirror host APIs:
 ## Connect (preferred product path)
 
 1. Sign in on Mirror → **Memory**: https://web-production-0e178.up.railway.app/memory
-2. Clone + build this repo (Until npm section above).
-3. Pick Cursor / Claude Desktop / Devin (local), set ENTRY to your local `dist/index.js`, **Copy config**.
-4. Paste into the client config path, reload / relaunch.
-5. **Test connection** on `/memory`.
+2. Pick Cursor / Claude Desktop / Devin (local) → **Copy config** (npx `@0.1.1`).
+3. Paste into the client config path, reload / relaunch.
+4. **Test connection** on `/memory`.
 
-One-pagers: [INSTALL_HUDSON.md](./INSTALL_HUDSON.md) (Cursor) · [INSTALL_CLAUDE_DESKTOP.md](./INSTALL_CLAUDE_DESKTOP.md)
-
-## Manual mcp.json (Cursor)
+## Manual mcp.json (Cursor — LIVE npx)
 
 ```json
 {
   "mcpServers": {
     "mirror-memory": {
-      "command": "node",
-      "args": ["/path/to/mirror-memory-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "mirror-memory-mcp@0.1.1"],
       "env": {
         "MIRROR_API_BASE": "https://web-production-0e178.up.railway.app",
         "MIRROR_MEMORY_TOKEN": "PASTE_SESSION_OR_EXTENSION_SYNC_TOKEN"
@@ -89,7 +81,7 @@ Skill: copy or point Cursor at `skills/mirror-memory/SKILL.md`.
 npm run smoke
 ```
 
-Prints the six tool schemas. Does not call the live host.
+Prints the tool schemas. Does not call the live host.
 
 ## Env
 
@@ -97,12 +89,6 @@ See `.env.example`:
 
 - `MIRROR_API_BASE` — default Railway host
 - `MIRROR_MEMORY_TOKEN` — Bearer session or extension sync token (**never commit**)
-
-## Publish notes (Asa)
-
-- `private: false` + `publishConfig.access: "public"` — ready for `npm publish` from an authenticated npm account.
-- Do **not** publish from this box if auth/IP is blocked — Asa publishes from a machine with npm credentials.
-- Gate: only advertise `npx` after `npm view mirror-memory-mcp version` succeeds.
 
 ## Layout
 
