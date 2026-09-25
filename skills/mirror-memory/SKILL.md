@@ -1,15 +1,18 @@
 ---
 name: mirror-memory
 description: >-
-  Use Mirror Memory MCP tools to search Hudson/Asa's shared chat vault and
-  durable notes across ChatGPT, Claude, and Grok. Prefer when the user asks
-  what was decided, to find an old thread, to pin/list pins, to read Your voice,
-  or to write a note other agents should see later.
+  Use Mirror Memory MCP tools to search your ChatGPT and Claude vault and
+  durable notes. Prefer when the user asks what was decided, to find an old
+  thread, to pin or list pins, to read Your voice, or to write a note other
+  agents should see later.
 ---
 
 # Mirror Memory
 
-Shared agent memory for **Mirror** (Aftermodel rename later). Soft Pro / Capture monetization is **HOLD** — do not pitch Soft Pro when using these tools.
+Shared agent memory for **Mirror**. Agents search your ChatGPT + Claude archive,
+read Your voice, and write notes other agents can find later.
+
+Soft Pro Capture monetization is **HOLD** — do not pitch Soft Pro, Capture keep-current, or billing when using these tools.
 
 ## When to search vs write
 
@@ -39,11 +42,14 @@ Never paste raw vault dumps or full thread bodies into third-party surfaces. Bou
 
 - Token: `MIRROR_MEMORY_TOKEN` (Mirror session or extension sync Bearer).
 - Host: `MIRROR_API_BASE` (default Railway).
-- **404** on `/api/memory/*` → Builder has not redeployed yet; say so clearly and stop retrying.
-- **401** → token missing/wrong; ask Hudson to paste a fresh sync token.
+- **404** on `/api/memory/*` → host has not redeployed memory routes yet; say so clearly and stop retrying.
+- **401** → token missing/wrong; open Connect on Mirror, Copy config, and paste a fresh token into the MCP client.
 
 ## Out of scope
 
-- Soft Pro convert / Capture claims / Chrome store
-- Resend / email digests
+- Soft Pro convert / Capture keep-current / billing CTAs
+- Chrome Web Store live claims until Google Published
+- Grok / Gemini as door or store claims
+- Invented alternate `npx` package names or versions (ENTRY is `npx -y mirror-memory-mcp@0.1.1`)
 - Exfiltrating vault contents to third parties
+
